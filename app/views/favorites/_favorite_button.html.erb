@@ -1,0 +1,13 @@
+<% if current_user.favorite_now?(micropost) %>
+
+  <%= form_for(current_user.favorites.find_by(post_id: micropost.id), url: "favorites/#{micropost.id}",html: {method: :delete} ) do |f| %>
+    <%= hidden_field_tag :post_id, micropost.id %>
+    <%= f.submit 'お気に入り削除', class: 'btn btn-default btn-xs' %>
+  <% end %>
+  
+<% else %>
+  <%= form_for(current_user.favorites.build) do |f| %>
+    <%= hidden_field_tag :post_id, micropost.id %>
+    <%= f.submit 'お気に入り追加', class: 'btn btn-warning btn-xs' %>
+  <% end %>
+<% end %>
